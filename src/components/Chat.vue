@@ -5,8 +5,8 @@
         <template #default="{ height }">
           <el-scrollbar ref="scrollContainer" :height="height">
             <div class="welcome-wrapper">
-              <span class="title">欢迎使用智能助手</span>
-              <span class="label animate__animated animate__bounceInDown">由 AI 支持的网页版 Copilot</span>
+              <span class="title">你的AI助手</span>
+              <span class="label animate__animated animate__bounceInDown">由 AI 支持的网页版</span>
             </div>
             <div class="example-wrapper ">
               <div class="item-wrapper animate__animated animate__bounceInDown" style="animation-delay: .3s;">
@@ -23,7 +23,7 @@
               </div>
             </div>
             <div class="tips-wrapper animate__animated animate__bounceInUp" style="animation-delay: .9s;">
-              让我们一起学习。智能助手由 AI 提供支持，因此可能出现意外和错误。
+              让我们一起学习。
             </div>
 
             <template v-for="(item, index) in chatList">

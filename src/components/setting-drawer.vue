@@ -3,15 +3,16 @@
     <el-auto-resizer>
       <template #default="{ height }">
         <el-scrollbar ref="scrollContainer" :height="height">
-          <el-alert title="ChatGPT" type="success" :closable="false" />
+          <el-alert title="大语言模型" type="success" :closable="false" />
           <el-form label-position="top">
-            <el-form-item label="Api-Key">
-              <el-input placeholder="请输入Api-Key" show-password v-model.trim="apiKey" @blur="changeApiKey"></el-input>
-            </el-form-item>
+
             <el-form-item label="模型">
               <el-select style="width: 100%" placeholder="选择模型" v-model="currentModel">
                 <el-option v-for="item in modelMap" :label="item.label" :value="item.value"></el-option>
               </el-select>
+            </el-form-item>
+            <el-form-item label="Api-Key" v-if="currentModel.includes('gpt-3.5')">
+              <el-input placeholder="请输入Api-Key" show-password v-model.trim="apiKey" @blur="changeApiKey"></el-input>
             </el-form-item>
           </el-form>
 
@@ -52,11 +53,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { storeToRefs } from 'pinia';
-import { useSettingStoreWithOut } from '@/store/setting';
+import {computed, ref} from 'vue'
+import {storeToRefs} from 'pinia';
+import {useSettingStoreWithOut} from '@/store/setting';
 import zhCnPromptOptions from '@/prompt/zh-cn.json'
-import { ElMessage } from 'element-plus';
+import {ElMessage} from 'element-plus';
 
 const settingStore = useSettingStoreWithOut()
 const { systemInfo, apiKey, modelMap, currentModel, chatList } = storeToRefs(settingStore)

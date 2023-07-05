@@ -9,14 +9,18 @@ const Storage = createStorage({ storage: localStorage });
 export const useSettingStore = defineStore('setting', {
   state: () => ({
     isSocket: true,
-    currentModel: 'gpt-3.5-turbo',
+    currentModel: 'chatglm-6b',
     chatList: [],
     openAiInstance: null,
     apiKey: import.meta.env.VITE_API_KEY ? import.meta.env.VITE_API_KEY : (Storage.get(ApiKey) || ''),
 
     modelMap: [
       { label: 'gpt-3.5-turbo', value: 'gpt-3.5-turbo' },
-      { label: 'gpt-3.5-turbo-0301', value: 'gpt-3.5-turbo-0301' },
+      { label: 'gpt-3.5-turbo-0613', value: 'gpt-3.5-turbo-0613' },
+      { label: 'gpt-3.5-turbo-16k', value: 'gpt-3.5-turbo-16k' },
+      { label: 'gpt-3.5-turbo-16k-0613', value: 'gpt-3.5-turbo-16k-0613' },
+      { label: 'chatglm-6b', value: 'chatglm-6b' },
+      { label: 'chatglm2-6b(开发中)', value: 'chatglm2-6b' },
       // { label: 'gpt-4', value: 'gpt-4' },
       // { label: 'gpt-4-0314', value: 'gpt-4-0314' },
       // { label: 'gpt-4-32k', value: 'gpt-4-32k' },
