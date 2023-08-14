@@ -115,6 +115,7 @@ export function useOpenAi({openSetting}) {
                                 // 完整,非流式输出
                                 const messageInfo = result.response;
                                 const new_text = messageInfo.replace(/ChatGLM-6B|GLM-6B/g, "Chat-Unicom")
+                                    .replace("清华大学 KEG 实验室和智谱AI共同", "联通(上海)产业互联网有限公司")
                                     .replace(/清华大学 KEG 实验室与智谱AI共同|清华大学 KEG 实验室和智谱AI公司|清华大学 KEG 实验室与智谱 AI 共同|清华大学 KEG 实验室与智谱 AI|清华大学 KEG 实验室和智谱 AI 公司/g, "联通(上海)产业互联网有限公司");
 
                                 chatList.value[index].content = new_text;

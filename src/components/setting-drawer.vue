@@ -64,7 +64,7 @@ const { systemInfo, apiKey, modelMap, currentModel, chatList } = storeToRefs(set
 
 const drawerVisible = ref(true)
 const drawerSize = computed(() => {
-  if (window.innerWidth > 750) return '500px'
+  if (window.innerWidth > 750) return '400px'
   return '100%'
 })
 

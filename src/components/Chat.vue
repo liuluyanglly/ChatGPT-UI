@@ -1,120 +1,134 @@
 <template>
-  <div class="chat-container">
-    <div class="chat-list">
-      <el-auto-resizer>
-        <template #default="{ height }">
-          <el-scrollbar ref="scrollContainer" :height="height">
-            <div class="welcome-wrapper">
-              <span class="title">你的AI助手</span>
-              <span class="label animate__animated animate__bounceInDown">由 AI 支持的网页版</span>
-            </div>
-            <div class="example-wrapper ">
-              <div class="item-wrapper animate__animated animate__bounceInDown" style="animation-delay: .3s;">
-                <div class="title">🧐 提出复杂问题</div>
-                <div class="message-card">"我可以为我挑剔的只吃橙色食物的孩子做什么饭?"</div>
-              </div>
-              <div class="item-wrapper animate__animated animate__bounceInDown" style="animation-delay: .5s;">
-                <div class="title">🙌 获取更好的答案</div>
-                <div class="message-card">"销量最高的 3 种宠物吸尘器有哪些优点和缺点?"</div>
-              </div>
-              <div class="item-wrapper animate__animated animate__bounceInDown" style="animation-delay: .7s;">
-                <div class="title">🎨 获得创意灵感</div>
-                <div class="message-card">"以海盗的口吻写一首关于外太空鳄鱼的俳句?"</div>
-              </div>
-            </div>
-            <div class="tips-wrapper animate__animated animate__bounceInUp" style="animation-delay: .9s;">
-              让我们一起学习。
-            </div>
+<!--    <div>-->
+<!--        <img src="/logo.jpg" style="width: 130px;margin: 0;float: left;">-->
+<!--    </div>-->
+    <LeftDrawer />
+    <div class="chat-container" style="width: 70%">
+        <div class="chat-list">
+            <el-auto-resizer>
+                <template #default="{ height }">
+                    <el-scrollbar ref="scrollContainer" :height="height">
+                        <div class="welcome-wrapper">
+                            <span class="title">联通大模型</span>
+                            <span class="label animate__animated animate__bounceInDown">你的AI助手</span>
+                        </div>
+<!--                        <div class="example-wrapper ">-->
+<!--                            <div class="item-wrapper animate__animated animate__bounceInDown"-->
+<!--                                 style="animation-delay: .3s;">-->
+<!--                                <div class="title">🧐 提出复杂问题</div>-->
+<!--                                <div class="message-card">"我可以为我挑剔的只吃橙色食物的孩子做什么饭?"</div>-->
+<!--                            </div>-->
+<!--                            <div class="item-wrapper animate__animated animate__bounceInDown"-->
+<!--                                 style="animation-delay: .5s;">-->
+<!--                                <div class="title">🙌 获取更好的答案</div>-->
+<!--                                <div class="message-card">"销量最高的 3 种宠物吸尘器有哪些优点和缺点?"</div>-->
+<!--                            </div>-->
+<!--                            <div class="item-wrapper animate__animated animate__bounceInDown"-->
+<!--                                 style="animation-delay: .7s;">-->
+<!--                                <div class="title">🎨 获得创意灵感</div>-->
+<!--                                <div class="message-card">"以海盗的口吻写一首关于外太空鳄鱼的俳句?"</div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="tips-wrapper animate__animated animate__bounceInUp" style="animation-delay: .9s;">-->
+<!--                            让我们一起学习。-->
+<!--                        </div>-->
 
-            <template v-for="(item, index) in chatList">
-              <div class="chat-list__item" v-if="item.role !== 'system'">
-                <div class="message-card animate__animated animate__fadeInUp"
-                  :class="{ 'is-right': item.role === 'user' }">
-                  <section class="list-item__text">
-                    <MarkdownIt :model-value="item.content"></MarkdownIt>
-                  </section>
-                  <div class="extend-wrapper" v-if="!pending" @click.stop="deleteMessage(index)">
-                    <el-icon color="#F56C6C" size="18px">
-                      <CircleClose />
-                    </el-icon>
-                  </div>
+                        <template v-for="(item, index) in chatList">
+                            <div class="chat-list__item" v-if="item.role !== 'system'">
+                                <div class="message-card animate__animated animate__fadeInUp"
+                                     :class="{ 'is-right': item.role === 'user' }">
+                                    <section class="list-item__text">
+                                        <MarkdownIt :model-value="item.content"></MarkdownIt>
+                                    </section>
+                                    <div class="extend-wrapper" v-if="!pending" @click.stop="deleteMessage(index)">
+                                        <el-icon color="#F56C6C" size="18px">
+                                            <CircleClose/>
+                                        </el-icon>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </el-scrollbar>
+                </template>
+            </el-auto-resizer>
+        </div>
+
+        <div class="chat-enter animate__animated animate__fadeInUp">
+            <div class="clear-wrapper" :class="{ mini: isMiniClear }" @click="clearHandle">
+                <div class="icon">
+                    <i-game-icons-magic-broom/>
                 </div>
-              </div>
-            </template>
-          </el-scrollbar>
-        </template>
-      </el-auto-resizer>
-    </div>
+                <div class="tips">新对话</div>
+            </div>
 
-    <div class="chat-enter animate__animated animate__fadeInUp">
-      <div class="clear-wrapper" :class="{ mini: isMiniClear }" @click="clearHandle">
-        <div class="icon">
-          <i-game-icons-magic-broom />
+            <div class="enter-wrapper">
+                <div class="enter-icon">
+                    <i-ph-chat-circle-text-light/>
+                </div>
+                <el-input type="textarea" placeholder="有问题尽管问我..." resize="none" maxlength="2000"
+                          enterkeyhint="send"
+                          autocorrect="off" show-word-limit :autosize="{ minRows: 1, maxRows: 8 }" v-model="keyword"
+                          @focus="focusHandle"
+                          @blur="blurHandle" @keydown.enter.prevent="sendMessage"></el-input>
+
+                <div class="is-pending" v-show="pending"></div>
+            </div>
         </div>
-        <div class="tips">新对话</div>
-      </div>
 
-      <div class="enter-wrapper">
-        <div class="enter-icon">
-          <i-ph-chat-circle-text-light />
-        </div>
-        <el-input type="textarea" placeholder="有问题尽管问我..." resize="none" maxlength="2000" enterkeyhint="send"
-          autocorrect="off" show-word-limit :autosize="{ minRows: 1, maxRows: 8 }" v-model="keyword" @focus="focusHandle"
-          @blur="blurHandle" @keydown.enter.prevent="sendMessage"></el-input>
 
-        <div class="is-pending" v-show="pending"></div>
-      </div>
+<!--        <div class="setting-button animate__animated animate__fadeInRight" @click="openSetting">-->
+<!--            高级设置-->
+<!--            <el-icon size="18px">-->
+<!--                <Setting/>-->
+<!--            </el-icon>-->
+<!--        </div>-->
+
     </div>
-
-    <div class="setting-button animate__animated animate__fadeInRight" @click="openSetting">
-      <el-icon size="18px">
-        <Setting />
-      </el-icon>
-    </div>
-  </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { useWindowSize } from '@vueuse/core'
-import { useOpenAi } from '@/hooks/useOpenAi'
-import { Setting, CircleClose } from '@element-plus/icons-vue'
-import { useModal } from '@/hooks/useModal'
-import { useSettingStore } from '@/store/setting'
-import { storeToRefs } from "pinia";
+import {computed, ref} from 'vue'
+import {useWindowSize} from '@vueuse/core'
+import {useOpenAi} from '@/hooks/useOpenAi'
+import {CircleClose, Setting} from '@element-plus/icons-vue'
+import {useModal} from '@/hooks/useModal'
+import {useSettingStore} from '@/store/setting'
+import {storeToRefs} from "pinia";
 import MarkdownIt from './markdown-it.vue';
 import settingDrawer from './setting-drawer.vue';
+import LeftDrawer from './left-drawer.vue';
 
 function openSetting() {
-  useModal(settingDrawer)
+    useModal(settingDrawer)
 }
 
-const { height } = useWindowSize()
+const {height} = useWindowSize()
 const clientHeight = computed(() => `${height.value}px`)
 
 const settingStore = useSettingStore()
-const { chatList } = storeToRefs(settingStore)
+const {chatList} = storeToRefs(settingStore)
 
 const {
-  scrollContainer,
-  keyword,
-  pending,
-  deleteMessage,
-  sendMessage,
-} = useOpenAi({ openSetting })
+    scrollContainer,
+    keyword,
+    pending,
+    deleteMessage,
+    sendMessage,
+} = useOpenAi({openSetting})
 
 const isMiniClear = ref(false)
 
 function clearHandle() {
-  pending.value = false
-  settingStore.clearMessage()
+    pending.value = false
+    settingStore.clearMessage()
 }
 
 function focusHandle() {
-  isMiniClear.value = true
+    isMiniClear.value = true
 }
+
 function blurHandle() {
-  isMiniClear.value = false
+    isMiniClear.value = false
 }
 </script>
 
@@ -357,7 +371,7 @@ function blurHandle() {
   position: fixed;
   right: -1px;
   top: 6vh;
-  width: 32px;
+  width: 132px;
   height: 32px;
   color: #fff;
   display: flex;
