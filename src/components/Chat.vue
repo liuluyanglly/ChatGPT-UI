@@ -12,26 +12,6 @@
                             <span class="title">联通大模型</span>
                             <span class="label animate__animated animate__bounceInDown">你的AI助手</span>
                         </div>
-<!--                        <div class="example-wrapper ">-->
-<!--                            <div class="item-wrapper animate__animated animate__bounceInDown"-->
-<!--                                 style="animation-delay: .3s;">-->
-<!--                                <div class="title">🧐 提出复杂问题</div>-->
-<!--                                <div class="message-card">"我可以为我挑剔的只吃橙色食物的孩子做什么饭?"</div>-->
-<!--                            </div>-->
-<!--                            <div class="item-wrapper animate__animated animate__bounceInDown"-->
-<!--                                 style="animation-delay: .5s;">-->
-<!--                                <div class="title">🙌 获取更好的答案</div>-->
-<!--                                <div class="message-card">"销量最高的 3 种宠物吸尘器有哪些优点和缺点?"</div>-->
-<!--                            </div>-->
-<!--                            <div class="item-wrapper animate__animated animate__bounceInDown"-->
-<!--                                 style="animation-delay: .7s;">-->
-<!--                                <div class="title">🎨 获得创意灵感</div>-->
-<!--                                <div class="message-card">"以海盗的口吻写一首关于外太空鳄鱼的俳句?"</div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="tips-wrapper animate__animated animate__bounceInUp" style="animation-delay: .9s;">-->
-<!--                            让我们一起学习。-->
-<!--                        </div>-->
 
                         <template v-for="(item, index) in chatList">
                             <div class="chat-list__item" v-if="item.role !== 'system'">

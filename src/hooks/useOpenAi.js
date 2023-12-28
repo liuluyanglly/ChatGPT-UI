@@ -212,7 +212,7 @@ export function useOpenAi({openSetting}) {
             scrollContainer.value?.setScrollTop(scrollTop);
         });
     }, 600);
-
+    
     function sendMessage(event) {
         if (!checkAuth()) return
         if (pending.value) return;

@@ -1,7 +1,7 @@
 <template>
     <div style="width: 20%; height: calc(100vh );background-color: #ffffff;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); float: left;">
         <div style="margin-left: 10px;display: flex;flex-direction: column;">
-            <img src="/logo.jpg" style="width: 130px;margin: 10px 10px 10px 10px;float: left;">
+<!--            <img src="/logo.jpg" style="width: 130px;margin: 10px 10px 10px 10px;float: left;">-->
         </div>
         <div style="margin-left: 10px;display: flex;flex-direction: column;margin-top: 10px">
             <label style="font-size: 24px;margin-left: 7px; font-weight: bold;">Chat-Unicom</label>
